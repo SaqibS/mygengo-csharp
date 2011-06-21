@@ -8,7 +8,7 @@ jobs. This is a C-sharp interface to make using the API simpler (some would say 
 Example Code
 ---------------------------------------------------------------------------------------------------------------------------
 
-`` c#  
+``` c#  
 using System;  
 using System.Collections.Generic;  
 using System.Linq;  
@@ -39,7 +39,7 @@ namespace myGengo.Examples
         }  
     }  
 }  
-``
+```
 
 Question, Comments, Complaints, Praise?
 ---------------------------------------------------------------------------------------------------------------------------
