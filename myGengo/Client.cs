@@ -81,7 +81,7 @@ namespace myGengo
                 throw new GengoException("Invalid response format: " + format + ", accepted formats are: json or xml.");
             }
             method = method.ToUpper();
-            string[] methods = { "GET", "POST", "PUT", "DELTE" };
+            string[] methods = { "GET", "POST", "PUT", "DELETE" };
             if (!methods.Contains(method))
             {
                 throw new GengoException("HTTP method: " + method + " not supported");
