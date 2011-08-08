@@ -1,6 +1,0 @@
-C:\Documents and Settings\andrea\My Documents\Visual Studio 2008\Projects\cs\myGengo\bin\Release\myGengo.exe
-C:\Documents and Settings\andrea\My Documents\Visual Studio 2008\Projects\cs\myGengo\bin\Release\myGengo.pdb
-C:\Documents and Settings\andrea\My Documents\Visual Studio 2008\Projects\cs\myGengo\bin\Release\Newtonsoft.Json.Net20.dll
-C:\Documents and Settings\andrea\My Documents\Visual Studio 2008\Projects\cs\myGengo\obj\Release\ResolveAssemblyReference.cache
-C:\Documents and Settings\andrea\My Documents\Visual Studio 2008\Projects\cs\myGengo\obj\Release\myGengo.exe
-C:\Documents and Settings\andrea\My Documents\Visual Studio 2008\Projects\cs\myGengo\obj\Release\myGengo.pdb

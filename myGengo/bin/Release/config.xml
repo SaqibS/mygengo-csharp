@@ -1,8 +1,0 @@
-<config>
-  <baseurl>http://api.sandbox.mygengo.com/v1/</baseurl>
-  <api_key></api_key>
-  <private_key></private_key>
-  <job_id></job_id>
-  <rev_id></rev_id>
-  <group_id></group_id>
-</config>
