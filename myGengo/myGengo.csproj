@@ -61,11 +61,6 @@
     <Compile Include="Client.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Crypto.cs" />
-    <Compile Include="Examples\Account.cs" />
-    <Compile Include="Examples\Generic.cs" />
-    <Compile Include="Examples\JobExample.cs" />
-    <Compile Include="Examples\JobsExample.cs" />
-    <Compile Include="Examples\Service.cs" />
     <Compile Include="GengoException.cs" />
     <Compile Include="Http\Utils.cs" />
     <Compile Include="Program.cs" />
