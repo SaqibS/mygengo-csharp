@@ -17,17 +17,31 @@
  * @license    http://mygengo.com/services/api/dev-docs/mygengo-code-license New BSD License
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace myGengo
 {
-    class GengoException : Exception
+    using System;
+    using System.Runtime.Serialization;
+
+    [Serializable]
+    internal class GengoException : Exception
     {
-        public GengoException(string error_message)
-            : base(error_message)
+        public GengoException()
+            : base()
+        {
+        }
+
+        public GengoException(string message)
+            : base(message)
+        {
+        }
+
+        public GengoException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        protected GengoException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }
