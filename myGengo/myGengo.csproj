@@ -63,7 +63,6 @@
     <Compile Include="Crypto.cs" />
     <Compile Include="GengoException.cs" />
     <Compile Include="Http\Utils.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
