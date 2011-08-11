@@ -6,7 +6,7 @@
     public class MyGengoClient
     {
         private const string StandardBaseUrl = "http://api.mygengo.com/v1/";
-        private const string SandboxBaseUrl = "http://api.sandbox.mygengo.com/v1";
+        private const string SandboxBaseUrl = "http://api.sandbox.mygengo.com/v1/";
 
         private string baseUrl = StandardBaseUrl;
         private ApiHelper api;
@@ -73,7 +73,7 @@ return "";
             }
         }
 
-        public string PostTranslationJob(TranslationJobSubmission job)
+        public string PostTranslationJob()
         {
             //		'url': '/translate/job',
             try

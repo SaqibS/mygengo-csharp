@@ -28,10 +28,8 @@
         {
             parameters.Add("api_key", this.publicKey);
             parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch());
-            parameters.Add("api_sig", Sign(MakeQueryString(parameters)));
-            string queryString = MakeQueryString(parameters);
-
-            Console.WriteLine(url + "?" + queryString);
+                        string queryString = MakeQueryString(parameters);
+                        queryString+="&api_sig=" + Sign(queryString);
 
             var webClient = new WebClient();
             webClient.Headers.Add("user-agent", "mygengo-csharp");
