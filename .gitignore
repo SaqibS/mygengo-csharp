@@ -1,3 +1,5 @@
 *.suo
-myGengo/bin/*
-myGengo/obj/*
+MyGengo/bin/*
+MyGengo/obj/*
+MyGengo.Tests/bin/*
+MyGengo.Tests/obj/*
