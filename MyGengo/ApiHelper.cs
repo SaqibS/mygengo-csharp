@@ -12,24 +12,26 @@
     {
         private string publicKey;
         private string privateKey;
+        private JavaScriptSerializer jsSerializer;
 
         public ApiHelper(string publicKey, string privateKey)
         {
             this.publicKey = publicKey;
             this.privateKey = privateKey;
+            jsSerializer = new JavaScriptSerializer();
         }
 
         public IDictionary<string, object> Call(string url, HttpMethod method)
         {
-            return Call(url, method, new SortedDictionary<string, object>());
+            return Call(url, method, new SortedDictionary<string, string>());
         }
 
-        public IDictionary<string, object> Call(string url, HttpMethod method, SortedDictionary<string, object> parameters)
+        public IDictionary<string, object> Call(string url, HttpMethod method, SortedDictionary<string, string> parameters)
         {
             parameters.Add("api_key", this.publicKey);
-            parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch());
-                        string queryString = MakeQueryString(parameters);
-                        queryString+="&api_sig=" + Sign(queryString);
+            parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch().ToString());
+            parameters.Add("api_sig", Sign(MakeQueryString(parameters)));
+            string queryString = MakeQueryString(parameters);
 
             var webClient = new WebClient();
             webClient.Headers.Add("user-agent", "mygengo-csharp");
@@ -44,15 +46,22 @@
                 case HttpMethod.Delete: break;
             }
 
-            return new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(json);
+            Dictionary<string,object> response = jsSerializer.Deserialize<Dictionary<string, object>>(json);
+            if ((string)response["opstat"] == "error")
+            {
+                Dictionary<string, object> error = (Dictionary<string, object>)response["err"];
+                throw new MyGengoException(string.Format("{0} (error code {1})", error["msg"], error["code"]));
+            }
+
+            return response;
         }
 
-        private string MakeQueryString(SortedDictionary<string, object> data)
+        private string MakeQueryString(SortedDictionary<string, string> data)
         {
             var sb = new StringBuilder();
-            foreach (KeyValuePair<string, object> kvp in data)
+            foreach (KeyValuePair<string, string> kvp in data)
             {
-                sb.AppendFormat("&{0}={1}", kvp.Key, HttpUtility.HtmlEncode(kvp.Value));
+                sb.AppendFormat("&{0}={1}", kvp.Key, HttpUtility.UrlEncode(kvp.Value, Encoding.UTF8));
             }
 
             sb.Remove(0, 1); // Remove the initial ampersand
@@ -64,7 +73,8 @@
             var hash = new HMACSHA1(Encoding.UTF8.GetBytes(this.privateKey));
             byte[] encrypted = hash.ComputeHash(Encoding.UTF8.GetBytes(s));
 
-            var sb = new StringBuilder();
+            // Convert to hex
+            var sb = new StringBuilder(capacity: encrypted.Length * 2);
             foreach (byte b in encrypted)
             {
                 sb.Append(b.ToString("x2"));
