@@ -46,7 +46,7 @@
                 case HttpMethod.Delete: break;
             }
 
-            Dictionary<string,object> response = jsSerializer.Deserialize<Dictionary<string, object>>(json);
+            Dictionary<string, object> response = jsSerializer.Deserialize<Dictionary<string, object>>(json);
             if ((string)response["opstat"] == "error")
             {
                 Dictionary<string, object> error = (Dictionary<string, object>)response["err"];
@@ -61,11 +61,27 @@
             var sb = new StringBuilder();
             foreach (KeyValuePair<string, string> kvp in data)
             {
-                sb.AppendFormat("&{0}={1}", kvp.Key, HttpUtility.UrlEncode(kvp.Value, Encoding.UTF8));
+                sb.AppendFormat("&{0}={1}", UrlEncode(kvp.Key), UrlEncode(kvp.Value));
             }
 
             sb.Remove(0, 1); // Remove the initial ampersand
             return sb.ToString();
+        }
+
+        private string UrlEncode(string s)
+        {
+            string encoded = "";
+            foreach (byte b in Encoding.UTF8.GetBytes(s))
+            {
+                if (b == 32) encoded += "+";
+                else if ((b > 47) && (b < 58)) encoded += (char)b;
+                else if ((b > 64) && (b < 91)) encoded += (char)b;
+                else if ((b > 96) && (b < 123)) encoded += (char)b;
+                else if (b == 95 || b == 45 || b == 46) encoded += (char)b;
+                else encoded += "%" + b.ToString("X2");
+            }
+
+            return encoded;
         }
 
         private string Sign(string s)

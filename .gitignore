@@ -1,5 +1,7 @@
-*.suo
 MyGengo/bin/*
 MyGengo/obj/*
 MyGengo.Tests/bin/*
 MyGengo.Tests/obj/*
+*.user
+*.suo
+TestResult.xml
