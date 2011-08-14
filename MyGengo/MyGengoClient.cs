@@ -226,6 +226,23 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
+        public IDictionary<string, object> GetServiceLanguagePairs(string sourceLanguageCode)
+        {
+            try
+            {
+                string url = baseUrl + "translate/service/language_pairs";
+
+                var parameters = new SortedDictionary<string, string>();
+                var data = new Dictionary<string, object>();
+                data["lc_src"] = sourceLanguageCode;
+                parameters["data"] = data.ToJson();
+
+                return api.Call(url, HttpMethod.Get, parameters);
+            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
+        }
+
         public IDictionary<string, object> DetermineTranslationCost()
         {
                         try

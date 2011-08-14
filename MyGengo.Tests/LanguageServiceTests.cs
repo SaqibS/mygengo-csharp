@@ -22,5 +22,12 @@
             IDictionary<string, object> response = myGengo.GetServiceLanguagePairs();
             Assert.AreEqual("ok", response["opstat"]);
         }
+
+        public void TestGetServiceLanguagePairsForLanguage()
+        {
+            var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
+            IDictionary<string, object> response = myGengo.GetServiceLanguagePairs("en-us");
+            Assert.AreEqual("ok", response["opstat"]);
+        }
             }
 }
