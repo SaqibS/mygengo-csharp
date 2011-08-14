@@ -2,26 +2,25 @@
 {
     using System;
     using System.Collections.Generic;
-    using MyGengo;
     using NUnit.Framework;
-    
+
     [TestFixture]
-    public class AccountTests
+    public class LanguageServiceTests
     {
         [Test]
-        public void TestGetAccountStats()
+        public void TestGetServiceLanguages()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string,object> response = myGengo.GetAccountStats();
+            IDictionary<string, object> response = myGengo.GetServiceLanguages();
             Assert.AreEqual("ok", response["opstat"]);
         }
 
         [Test]
-        public void TestGetAccountBalance()
+        public void TestGetServiceLanguagePairs()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string, object> response = myGengo.GetAccountBalance();
+            IDictionary<string, object> response = myGengo.GetServiceLanguagePairs();
             Assert.AreEqual("ok", response["opstat"]);
         }
-    }
+            }
 }

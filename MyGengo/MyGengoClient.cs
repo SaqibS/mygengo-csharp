@@ -44,7 +44,7 @@
             try
             {
                 string url = baseUrl + "account/stats";
-                                                                return api.Call(url, HttpMethod.Get);
+                                                                return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
                                         }
             catch (MyGengoException x)
             {
@@ -56,12 +56,12 @@
             }
         }
 
-        public string GetAccountBalance()
+        public IDictionary<string,object> GetAccountBalance()
         {
-            //		'url': '/account/balance',
-            try
+                        try
             {
-return "";
+                string url = baseUrl + "account/balance";
+                return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x)
             {
@@ -73,12 +73,12 @@ return "";
             }
         }
 
-        public string PostTranslationJob()
+        public IDictionary<string, object> PostTranslationJob()
         {
             //		'url': '/translate/job',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -90,12 +90,12 @@ return "";
             }
         }
 
-        public string PostTranslationJobs()
+        public IDictionary<string, object> PostTranslationJobs()
         {
             //		'url': '/translate/jobs',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -107,12 +107,12 @@ return "";
             }
         }
 
-        public string UpdateTranslationJob(string id)
+        public IDictionary<string, object> UpdateTranslationJob(string id)
         {
             //		'url': '/translate/job/{{id}}',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -124,12 +124,12 @@ return "";
             }
         }
 
-        public string GetTranslationJob(string id)
+        public IDictionary<string, object> GetTranslationJob(string id)
         {
             //		'url': '/translate/job/{{id}}',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -141,12 +141,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobs()
+        public IDictionary<string, object> GetTranslationJobs()
         {
             //		'url': '/translate/jobs',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -158,12 +158,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobBatch(string id)
+        public IDictionary<string, object> GetTranslationJobBatch(string id)
         {
             //		'url': '/translate/jobs/{{id}}',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -175,12 +175,12 @@ return "";
             }
         }
 
-        public string DetermineTranslationCost()
+        public IDictionary<string, object> DetermineTranslationCost()
         {
             //		'url': '/translate/service/quote',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -192,12 +192,12 @@ return "";
             }
         }
 
-        public string PostTranslationJobComment(string id)
+        public IDictionary<string, object> PostTranslationJobComment(string id)
         {
             //		'url': '/translate/job/{{id}}/comment',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -209,12 +209,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobComments(string id)
+        public IDictionary<string, object> GetTranslationJobComments(string id)
         {
             //		'url': '/translate/job/{{id}}/comments',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -226,12 +226,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobFeedback(string id)
+        public IDictionary<string, object> GetTranslationJobFeedback(string id)
         {
             //		'url': '/translate/job/{{id}}/feedback',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -243,12 +243,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobRevisions(string id)
+        public IDictionary<string, object> GetTranslationJobRevisions(string id)
         {
             //		'url': '/translate/job/{{id}}/revisions',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -260,12 +260,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobRevision(string id, string revisionId)
+        public IDictionary<string, object> GetTranslationJobRevision(string id, string revisionId)
         {
             //		'url': '/translate/job/{{id}}/revisions/{{revision_id}}',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -277,12 +277,12 @@ return "";
             }
         }
 
-        public string GetTranslationJobPreviewImage(string id)
+        public IDictionary<string, object> GetTranslationJobPreviewImage(string id)
         {
             //		'url': '/translate/job/{{id}}/preview',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -294,12 +294,12 @@ return "";
             }
         }
 
-        public string DeleteTranslationJob(string id)
+        public IDictionary<string, object> DeleteTranslationJob(string id)
         {
             //		'url': '/translate/job/{{id}}',
             try
             {
-return "";
+return null;
             }
             catch (MyGengoException x)
             {
@@ -311,12 +311,12 @@ return "";
             }
         }
 
-        public string GetServiceLanguagePairs()
+        public IDictionary<string, object> GetServiceLanguages()
         {
-            //		'url': '/translate/service/language_pairs',
-            try
+                        try
             {
-return "";
+                string url = baseUrl + "translate/service/languages";
+                return api.Call(url, HttpMethod.Get);
             }
             catch (MyGengoException x)
             {
@@ -328,12 +328,12 @@ return "";
             }
         }
 
-        public string GetServiceLanguages()
+        public IDictionary<string, object> GetServiceLanguagePairs()
         {
-            //		'url': '/translate/service/languages',
-            try
+                        try
             {
-return "";
+                string url = baseUrl + "translate/service/language_pairs";
+                return api.Call(url, HttpMethod.Get);
             }
             catch (MyGengoException x)
             {

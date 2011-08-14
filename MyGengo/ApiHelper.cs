@@ -23,14 +23,34 @@
 
         public IDictionary<string, object> Call(string url, HttpMethod method)
         {
-            return Call(url, method, new SortedDictionary<string, string>());
+            return Call(url, method, new SortedDictionary<string, string>(), false);
+        }
+
+        public IDictionary<string, object> Call(string url, HttpMethod method, bool requiresAuthentication)
+        {
+            return Call(url, method, new SortedDictionary<string, string>(), requiresAuthentication);
         }
 
         public IDictionary<string, object> Call(string url, HttpMethod method, SortedDictionary<string, string> parameters)
         {
-            parameters.Add("api_key", this.publicKey);
-            parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch().ToString());
-            parameters.Add("api_sig", Sign(MakeQueryString(parameters)));
+            return Call(url, method, parameters, false);
+        }
+
+        public IDictionary<string, object> Call(string url, HttpMethod method, SortedDictionary<string, string> parameters, bool requiresAuthentication)
+        {
+            if (requiresAuthentication && (string.IsNullOrEmpty(this.publicKey) || string.IsNullOrEmpty(this.privateKey)))
+            {
+                throw new MyGengoException("This API requires authentication. Both a public and private key must be specified.");
+            }
+
+                        parameters.Add("api_key", this.publicKey);
+
+                        if (requiresAuthentication)
+                        {
+                            parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch().ToString());
+                            parameters.Add("api_sig", Sign(MakeQueryString(parameters)));
+                        }
+
             string queryString = MakeQueryString(parameters);
 
             var webClient = new WebClient();
