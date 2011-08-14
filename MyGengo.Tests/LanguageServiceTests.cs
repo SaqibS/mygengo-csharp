@@ -1,7 +1,7 @@
 ﻿namespace MyGengo.Tests
 {
     using System;
-    using System.Collections.Generic;
+    using System.Xml.Linq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -11,23 +11,24 @@
         public void TestGetServiceLanguages()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string, object> response = myGengo.GetServiceLanguages();
-            Assert.AreEqual("ok", response["opstat"]);
+            XDocument response = myGengo.GetServiceLanguages();
+            Assert.AreEqual("ok", response.Element("opstat").Value);
         }
 
         [Test]
         public void TestGetServiceLanguagePairs()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string, object> response = myGengo.GetServiceLanguagePairs();
-            Assert.AreEqual("ok", response["opstat"]);
+            XDocument response = myGengo.GetServiceLanguagePairs();
+            Assert.AreEqual("ok", response.Element("opstat").Value);
         }
 
+        [Test]
         public void TestGetServiceLanguagePairsForLanguage()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string, object> response = myGengo.GetServiceLanguagePairs("en-us");
-            Assert.AreEqual("ok", response["opstat"]);
+            XDocument response = myGengo.GetServiceLanguagePairs("en-us");
+            Assert.AreEqual("ok", response.Element("opstat").Value);
         }
             }
 }

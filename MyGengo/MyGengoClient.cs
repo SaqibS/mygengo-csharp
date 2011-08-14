@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml.Linq;
 
     public class MyGengoClient
     {
@@ -39,7 +40,7 @@
                         set { baseUrl= value? SandboxBaseUrl: StandardBaseUrl; }
         }
 
-        public IDictionary<string, object> GetAccountStats()
+        public XDocument GetAccountStats()
         {
             try
             {
@@ -50,7 +51,7 @@
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string,object> GetAccountBalance()
+        public XDocument GetAccountBalance()
         {
                         try
             {
@@ -61,7 +62,7 @@
                         catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> PostTranslationJob()
+        public XDocument PostTranslationJob()
         {
                         try
             {
@@ -72,7 +73,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> PostTranslationJobs()
+        public XDocument PostTranslationJobs()
         {
                         try
             {
@@ -83,7 +84,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> UpdateTranslationJob(string id)
+        public XDocument UpdateTranslationJob(string id)
         {
                         try
             {
@@ -94,7 +95,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJob(string id)
+        public XDocument GetTranslationJob(string id)
         {
                         try
             {
@@ -105,7 +106,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobs()
+        public XDocument GetTranslationJobs()
         {
                         try
             {
@@ -116,7 +117,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobBatch(string id)
+        public XDocument GetTranslationJobBatch(string id)
         {
                         try
             {
@@ -127,7 +128,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-                public IDictionary<string, object> PostTranslationJobComment(string id)
+                public XDocument PostTranslationJobComment(string id)
         {
                         try
             {
@@ -138,7 +139,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobComments(string id)
+        public XDocument GetTranslationJobComments(string id)
         {
                         try
             {
@@ -149,7 +150,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobFeedback(string id)
+        public XDocument GetTranslationJobFeedback(string id)
         {
                         try
             {
@@ -160,7 +161,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobRevisions(string id)
+        public XDocument GetTranslationJobRevisions(string id)
         {
                         try
             {
@@ -171,7 +172,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobRevision(string id, string revisionId)
+        public XDocument GetTranslationJobRevision(string id, string revisionId)
         {
                         try
             {
@@ -182,7 +183,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetTranslationJobPreviewImage(string id)
+        public XDocument GetTranslationJobPreviewImage(string id)
         {
                         try
             {
@@ -193,7 +194,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> DeleteTranslationJob(string id)
+        public XDocument DeleteTranslationJob(string id)
         {
                         try
             {
@@ -204,7 +205,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetServiceLanguages()
+        public XDocument GetServiceLanguages()
         {
             try
             {
@@ -215,7 +216,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetServiceLanguagePairs()
+        public XDocument GetServiceLanguagePairs()
         {
                         try
             {
@@ -226,7 +227,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> GetServiceLanguagePairs(string sourceLanguageCode)
+        public XDocument GetServiceLanguagePairs(string sourceLanguageCode)
         {
             try
             {
@@ -243,7 +244,7 @@ return null;
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> DetermineTranslationCost()
+        public XDocument DetermineTranslationCost()
         {
                         try
             {

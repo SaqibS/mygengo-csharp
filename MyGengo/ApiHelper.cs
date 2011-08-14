@@ -5,38 +5,35 @@
     using System.Net;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Web;
-    using System.Web.Script.Serialization;
+    using System.Xml.Linq;
 
     internal class ApiHelper
     {
         private string publicKey;
         private string privateKey;
-        private JavaScriptSerializer jsSerializer;
 
         public ApiHelper(string publicKey, string privateKey)
         {
             this.publicKey = publicKey;
             this.privateKey = privateKey;
-            jsSerializer = new JavaScriptSerializer();
         }
 
-        public IDictionary<string, object> Call(string url, HttpMethod method)
+        public XDocument Call(string url, HttpMethod method)
         {
             return Call(url, method, new SortedDictionary<string, string>(), false);
         }
 
-        public IDictionary<string, object> Call(string url, HttpMethod method, bool requiresAuthentication)
+        public XDocument Call(string url, HttpMethod method, bool requiresAuthentication)
         {
             return Call(url, method, new SortedDictionary<string, string>(), requiresAuthentication);
         }
 
-        public IDictionary<string, object> Call(string url, HttpMethod method, SortedDictionary<string, string> parameters)
+        public XDocument Call(string url, HttpMethod method, SortedDictionary<string, string> parameters)
         {
             return Call(url, method, parameters, false);
         }
 
-        public IDictionary<string, object> Call(string url, HttpMethod method, SortedDictionary<string, string> parameters, bool requiresAuthentication)
+        public XDocument Call(string url, HttpMethod method, SortedDictionary<string, string> parameters, bool requiresAuthentication)
         {
             if (requiresAuthentication && (string.IsNullOrEmpty(this.publicKey) || string.IsNullOrEmpty(this.privateKey)))
             {
@@ -52,28 +49,41 @@
                         }
 
             string queryString = MakeQueryString(parameters);
+            url += "?" + queryString;
 
             var webClient = new WebClient();
             webClient.Headers.Add("user-agent", "mygengo-csharp");
-            webClient.Headers.Add("accept", "application/json");
+            webClient.Headers.Add("accept", "application/xml");
 
-            string json = "";
+            string xml = "";
             switch (method)
             {
-                case HttpMethod.Get: json = webClient.DownloadString(url + "?" + queryString); break;
+                case HttpMethod.Get: xml = webClient.DownloadString(url); break;
                 case HttpMethod.Post: break;
                 case HttpMethod.Put: break;
                 case HttpMethod.Delete: break;
             }
 
-            Dictionary<string, object> response = jsSerializer.Deserialize<Dictionary<string, object>>(json);
-            if ((string)response["opstat"] == "error")
+            XDocument doc;
+            try
             {
-                Dictionary<string, object> error = (Dictionary<string, object>)response["err"];
-                throw new MyGengoException(string.Format("{0} (error code {1})", error["msg"], error["code"]));
+                doc = XDocument.Parse(xml);
+            }
+            catch (Exception x)
+            {
+                var mgx = new MyGengoException("The response returned by myGengo is not valid XML", x);
+                mgx.Data.Add("url", url);
+                mgx.Data.Add("response", xml);
+                throw mgx;
             }
 
-            return response;
+            if (doc.Root.Element("opstat").Value == "error")
+            {
+                XElement error = doc.Root.Element("response").Element("error");
+                throw new MyGengoException(string.Format("{0} (error code {1})", error.Element("msg").Value, error.Element("code").Value));
+            }
+
+            return doc;
         }
 
         private string MakeQueryString(SortedDictionary<string, string> data)
@@ -88,6 +98,8 @@
             return sb.ToString();
         }
 
+        // This method is very similar to HttpUtility.UrlEncode()
+        // However, the former does not encode parentheses, which is required by myGengo
         private string UrlEncode(string s)
         {
             string encoded = "";

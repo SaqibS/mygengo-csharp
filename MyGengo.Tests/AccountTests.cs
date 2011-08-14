@@ -1,7 +1,7 @@
 ﻿namespace MyGengo.Tests
 {
     using System;
-    using System.Collections.Generic;
+    using System.Xml.Linq;
     using MyGengo;
     using NUnit.Framework;
     
@@ -12,16 +12,16 @@
         public void TestGetAccountStats()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string,object> response = myGengo.GetAccountStats();
-            Assert.AreEqual("ok", response["opstat"]);
+            XDocument response = myGengo.GetAccountStats();
+            Assert.AreEqual("ok", response.Element("opstat").Value);
         }
 
         [Test]
         public void TestGetAccountBalance()
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
-            IDictionary<string, object> response = myGengo.GetAccountBalance();
-            Assert.AreEqual("ok", response["opstat"]);
+            XDocument response = myGengo.GetAccountBalance();
+            Assert.AreEqual("ok", response.Element("opstat").Value);
         }
     }
 }
