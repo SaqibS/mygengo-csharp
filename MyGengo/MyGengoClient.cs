@@ -46,14 +46,8 @@
                 string url = baseUrl + "account/stats";
                                                                 return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
                                         }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string,object> GetAccountBalance()
@@ -63,269 +57,162 @@
                 string url = baseUrl + "account/balance";
                 return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+                        catch (MyGengoException x) { throw x; }
+                        catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> PostTranslationJob()
         {
-            //		'url': '/translate/job',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> PostTranslationJobs()
         {
-            //		'url': '/translate/jobs',
-            try
+                        try
             {
+                string url = baseUrl + "translate/jobs";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> UpdateTranslationJob(string id)
         {
-            //		'url': '/translate/job/{{id}}',
-            try
+                        try
             {
+                string url = baseUrl + "translate/job/" + id;
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJob(string id)
         {
-            //		'url': '/translate/job/{{id}}',
-            try
+                        try
             {
+                string url = baseUrl + "translate/job/" + id;
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobs()
         {
-            //		'url': '/translate/jobs',
-            try
+                        try
             {
+                string url = baseUrl + "translate/jobs";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobBatch(string id)
         {
-            //		'url': '/translate/jobs/{{id}}',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/jobs/" + id;
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public IDictionary<string, object> DetermineTranslationCost()
+                public IDictionary<string, object> PostTranslationJobComment(string id)
         {
-            //		'url': '/translate/service/quote',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job/" + id + "/comment";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
-        }
-
-        public IDictionary<string, object> PostTranslationJobComment(string id)
-        {
-            //		'url': '/translate/job/{{id}}/comment',
-            try
-            {
-return null;
-            }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobComments(string id)
         {
-            //		'url': '/translate/job/{{id}}/comments',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job/" + id + "/comments";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobFeedback(string id)
         {
-            //		'url': '/translate/job/{{id}}/feedback',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job/" + id + "/feedback";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobRevisions(string id)
         {
-            //		'url': '/translate/job/{{id}}/revisions',
-            try
+                        try
             {
+                            string url = "translate/job/" + id + "/revisions";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobRevision(string id, string revisionId)
         {
-            //		'url': '/translate/job/{{id}}/revisions/{{revision_id}}',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job/" + id + "/revisions/" + revisionId;
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetTranslationJobPreviewImage(string id)
         {
-            //		'url': '/translate/job/{{id}}/preview',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job/" + id + "/preview";
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> DeleteTranslationJob(string id)
         {
-            //		'url': '/translate/job/{{id}}',
-            try
+                        try
             {
+                            string url = baseUrl + "translate/job/" + id;
 return null;
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetServiceLanguages()
         {
-                        try
+            try
             {
                 string url = baseUrl + "translate/service/languages";
                 return api.Call(url, HttpMethod.Get);
             }
-            catch (MyGengoException x)
-            {
-                throw x;
-            }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
         public IDictionary<string, object> GetServiceLanguagePairs()
@@ -335,14 +222,19 @@ return null;
                 string url = baseUrl + "translate/service/language_pairs";
                 return api.Call(url, HttpMethod.Get);
             }
-            catch (MyGengoException x)
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
+        }
+
+        public IDictionary<string, object> DetermineTranslationCost()
+        {
+                        try
             {
-                throw x;
+                            string url = baseUrl + "translate/service/quote";
+return null;
             }
-            catch (Exception x)
-            {
-                throw new Exception(x.Message, x);
-            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
     }
 }
