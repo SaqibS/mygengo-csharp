@@ -52,6 +52,7 @@
             url += "?" + queryString;
 
             var webClient = new WebClient();
+            webClient.Encoding = Encoding.UTF8;
             webClient.Headers.Add("user-agent", "mygengo-csharp");
             webClient.Headers.Add("accept", "application/xml");
 

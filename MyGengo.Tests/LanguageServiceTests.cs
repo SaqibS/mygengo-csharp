@@ -12,7 +12,8 @@
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
             XDocument response = myGengo.GetServiceLanguages();
-            Assert.AreEqual("ok", response.Element("opstat").Value);
+            Console.WriteLine(response.ToString());
+            Assert.AreEqual("ok", response.Root.Element("opstat").Value);
         }
 
         [Test]
@@ -20,7 +21,7 @@
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
             XDocument response = myGengo.GetServiceLanguagePairs();
-            Assert.AreEqual("ok", response.Element("opstat").Value);
+            Assert.AreEqual("ok", response.Root.Element("opstat").Value);
         }
 
         [Test]
@@ -28,7 +29,7 @@
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
             XDocument response = myGengo.GetServiceLanguagePairs("en-us");
-            Assert.AreEqual("ok", response.Element("opstat").Value);
+            Assert.AreEqual("ok", response.Root.Element("opstat").Value);
         }
             }
 }

@@ -13,7 +13,7 @@
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
             XDocument response = myGengo.GetAccountStats();
-            Assert.AreEqual("ok", response.Element("opstat").Value);
+            Assert.AreEqual("ok", response.Root.Element("opstat").Value);
         }
 
         [Test]
@@ -21,7 +21,7 @@
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
             XDocument response = myGengo.GetAccountBalance();
-            Assert.AreEqual("ok", response.Element("opstat").Value);
+            Assert.AreEqual("ok", response.Root.Element("opstat").Value);
         }
     }
 }
