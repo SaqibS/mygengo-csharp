@@ -2,13 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Net;
+    using System.Reflection;
     using System.Security.Cryptography;
     using System.Text;
     using System.Xml.Linq;
 
     internal class ApiHelper
     {
+        private static readonly string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
         private string publicKey;
         private string privateKey;
 
@@ -49,21 +53,7 @@
                         }
 
             string queryString = MakeQueryString(parameters);
-            url += "?" + queryString;
-
-            var webClient = new WebClient();
-            webClient.Encoding = Encoding.UTF8;
-            webClient.Headers.Add("user-agent", "mygengo-csharp");
-            webClient.Headers.Add("accept", "application/xml");
-
-            string xml = "";
-            switch (method)
-            {
-                case HttpMethod.Get: xml = webClient.DownloadString(url); break;
-                case HttpMethod.Post: break;
-                case HttpMethod.Put: break;
-                case HttpMethod.Delete: break;
-            }
+            string xml = SendRequest(method, url, queryString);
 
             XDocument doc;
             try
@@ -131,5 +121,41 @@
 
             return sb.ToString();
         }
+
+public string SendRequest(HttpMethod method, string url, string queryString)
+{
+HttpWebRequest request;
+switch (method)
+{
+case HttpMethod.Get:
+url = url + "?" + queryString;
+request = (HttpWebRequest)WebRequest.Create(url);
+request.Method = method.ToString();
+break;
+case HttpMethod.Put:
+request = (HttpWebRequest)WebRequest.Create(url);
+request.Method = method.ToString();
+request.ContentType = "text/plain";
+using (StreamWriter writer = new StreamWriter(request.GetRequestStream())) writer.Write(queryString);
+break;
+case HttpMethod.Post:
+request = (HttpWebRequest)WebRequest.Create(url);
+request.Method = method.ToString();
+request.ContentType = "application/x-www-form-urlencoded";
+request.ContentLength = queryString.Length;
+using (StreamWriter writer = new StreamWriter(request.GetRequestStream())) writer.Write(queryString);
+break;
+default:
+throw new MyGengoException("HTTP method + " + method.ToString() + " is not supported");
+}
+
+request.UserAgent = "myGengo C# library V" + version;
+request.Accept = "application/xml";
+HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+{
+    return reader.ReadToEnd();
+}
+}
     }
 }

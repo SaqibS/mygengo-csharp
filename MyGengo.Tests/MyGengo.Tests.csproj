@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AccountTests.cs" />
     <Compile Include="ApiKeys.cs" />
+    <Compile Include="JobTests.cs" />
     <Compile Include="LanguageServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

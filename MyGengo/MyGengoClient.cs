@@ -62,12 +62,16 @@
                         catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public XDocument PostTranslationJob()
+        public XDocument PostTranslationJob(TranslationJob job)
         {
                         try
             {
                             string url = baseUrl + "translate/job";
-return null;
+                            var parameters = new Dictionary<string, string>();
+                            var data = new Dictionary<string, object>();
+                            data.Add("job", job.ToDictionary());
+                            parameters.Add("data", data.ToJson());
+                            return api.Call(url, HttpMethod.Post, parameters, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }

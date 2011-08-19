@@ -48,6 +48,7 @@
     <Compile Include="MyGengoClient.cs" />
     <Compile Include="MyGengoException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TranslationJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
