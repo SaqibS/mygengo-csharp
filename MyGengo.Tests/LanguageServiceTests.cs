@@ -12,7 +12,6 @@
         {
             var myGengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
             XDocument response = myGengo.GetServiceLanguages();
-            Console.WriteLine(response.ToString());
             Assert.AreEqual("ok", response.Root.Element("opstat").Value);
         }
 
