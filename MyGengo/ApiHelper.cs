@@ -20,20 +20,20 @@
 
         public XDocument Call(string url, HttpMethod method)
         {
-            return Call(url, method, new SortedDictionary<string, string>(), false);
+            return Call(url, method, new Dictionary<string, string>(), false);
         }
 
         public XDocument Call(string url, HttpMethod method, bool requiresAuthentication)
         {
-            return Call(url, method, new SortedDictionary<string, string>(), requiresAuthentication);
+            return Call(url, method, new Dictionary<string, string>(), requiresAuthentication);
         }
 
-        public XDocument Call(string url, HttpMethod method, SortedDictionary<string, string> parameters)
+        public XDocument Call(string url, HttpMethod method, Dictionary<string, string> parameters)
         {
             return Call(url, method, parameters, false);
         }
 
-        public XDocument Call(string url, HttpMethod method, SortedDictionary<string, string> parameters, bool requiresAuthentication)
+        public XDocument Call(string url, HttpMethod method, Dictionary<string, string> parameters, bool requiresAuthentication)
         {
             if (requiresAuthentication && (string.IsNullOrEmpty(this.publicKey) || string.IsNullOrEmpty(this.privateKey)))
             {
@@ -45,7 +45,7 @@
                         if (requiresAuthentication)
                         {
                             parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch().ToString());
-                            parameters.Add("api_sig", Sign(MakeQueryString(parameters)));
+                            parameters.Add("api_sig", Sign(parameters["ts"]));
                         }
 
             string queryString = MakeQueryString(parameters);
@@ -80,14 +80,14 @@
 
             if (doc.Root.Element("opstat").Value == "error")
             {
-                XElement error = doc.Root.Element("response").Element("error");
+                XElement error = doc.Root.Element("err");
                 throw new MyGengoException(string.Format("{0} (error code {1})", error.Element("msg").Value, error.Element("code").Value));
             }
 
             return doc;
         }
 
-        private string MakeQueryString(SortedDictionary<string, string> data)
+        private string MakeQueryString(Dictionary<string, string> data)
         {
             var sb = new StringBuilder();
             foreach (KeyValuePair<string, string> kvp in data)

@@ -6,8 +6,8 @@
 
     public class MyGengoClient
     {
-        private const string StandardBaseUrl = "http://api.mygengo.com/v1/";
-        private const string SandboxBaseUrl = "http://api.sandbox.mygengo.com/v1/";
+        private const string StandardBaseUrl = "http://api.mygengo.com/v1.1/";
+        private const string SandboxBaseUrl = "http://api.sandbox.mygengo.com/v1.1/";
 
         private string baseUrl = StandardBaseUrl;
         private ApiHelper api;
@@ -233,7 +233,7 @@ return null;
             {
                 string url = baseUrl + "translate/service/language_pairs";
 
-                var parameters = new SortedDictionary<string, string>();
+                var parameters = new Dictionary<string, string>();
                 var data = new Dictionary<string, object>();
                 data["lc_src"] = sourceLanguageCode;
                 parameters["data"] = data.ToJson();
