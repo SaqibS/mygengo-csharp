@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
 
-    public enum Tier { Machine, Standard, Pro, Ultra };
-
     public class TranslationJob
     {
         public TranslationJob()

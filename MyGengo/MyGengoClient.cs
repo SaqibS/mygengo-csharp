@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml.Linq;
 
     public class MyGengoClient
@@ -67,33 +68,92 @@
                         try
             {
                             string url = baseUrl + "translate/job";
-                            var parameters = new Dictionary<string, string>();
                             var data = new Dictionary<string, object>();
                             data.Add("job", job.ToDictionary());
-                            parameters.Add("data", data.ToJson());
-                            return api.Call(url, HttpMethod.Post, parameters, requiresAuthentication: true);
+                            return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public XDocument PostTranslationJobs()
+        public XDocument PostTranslationJobs(TranslationJob[] jobs, bool processAsGroup=false, bool shouldProcess=true)
         {
                         try
             {
                 string url = baseUrl + "translate/jobs";
-return null;
+                var data = new Dictionary<string, object>();
+                data.Add("jobs", jobs.Select(x => x.ToDictionary()).ToArray());
+                data.Add("as_group", processAsGroup ? 1 : 0);
+                data.Add("process", shouldProcess ? 1 : 0);
+return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
+            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
+        }
+                
+        public XDocument PurchaseTranslationJob(string id)
+        {
+            try
+            {
+                string url = baseUrl + "translate/job/" + id;
+                var data = new Dictionary<string, object>();
+                data.Add("action", "purchase");
+                return api.Call(url, HttpMethod.Put, data, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public XDocument UpdateTranslationJob(string id)
+        public XDocument ReviseTranslationJob(string id, string comments)
+        {
+            try
+            {
+                string url = baseUrl + "translate/job/" + id;
+                var data = new Dictionary<string, object>();
+                data.Add("action", "revise");
+                data.Add("comment", comments);
+                return api.Call(url, HttpMethod.Put, data, requiresAuthentication: true);
+            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
+        }
+
+        public XDocument ApproveTranslationJob(string id, Rating rating, string commentsForTranslator = "", string commentsForMyGengo = "", bool feedbackIsPublic = false)
+        {
+            try
+            {
+                string url = baseUrl + "translate/job/" + id;
+                var data = new Dictionary<string, object>();
+                data.Add("action", "approve");
+                data.Add("for_translator", commentsForTranslator);
+                data.Add("for_mygengo", commentsForMyGengo);
+                data.Add("public", feedbackIsPublic ? "1" : "0");
+                switch (rating)
+                {
+                    case Rating.OneStar: data.Add("rating", "1"); break;
+                    case Rating.TwoStars: data.Add("rating", "2"); break;
+                    case Rating.ThreeStars: data.Add("rating", "3"); break;
+                    case Rating.FourStars: data.Add("rating", "4"); break;
+                    case Rating.FiveStars: data.Add("rating", "5"); break;
+                    default: throw new ArgumentException("rating");
+                }
+                return api.Call(url, HttpMethod.Put, data, requiresAuthentication: true);
+            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
+        }
+
+        public XDocument RejectTranslationJob(string id, RejectReason reason, string comments, string captcha, bool requeue)
         {
                         try
             {
                 string url = baseUrl + "translate/job/" + id;
-return null;
+                var data = new Dictionary<string, object>();
+                data.Add("reason", reason.ToString().ToLower());
+                data.Add("comment", comments);
+                data.Add("captcha", captcha);
+                data.Add("follow_up", requeue ? "requeue" : "cancel");
+                return api.Call(url, HttpMethod.Put, data, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -237,12 +297,9 @@ return null;
             {
                 string url = baseUrl + "translate/service/language_pairs";
 
-                var parameters = new Dictionary<string, string>();
                 var data = new Dictionary<string, object>();
                 data["lc_src"] = sourceLanguageCode;
-                parameters["data"] = data.ToJson();
-
-                return api.Call(url, HttpMethod.Get, parameters);
+                return api.Call(url, HttpMethod.Get, data);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }

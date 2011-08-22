@@ -24,32 +24,38 @@
 
         public XDocument Call(string url, HttpMethod method)
         {
-            return Call(url, method, new Dictionary<string, string>(), false);
+            return Call(url, method, null, false);
         }
 
         public XDocument Call(string url, HttpMethod method, bool requiresAuthentication)
         {
-            return Call(url, method, new Dictionary<string, string>(), requiresAuthentication);
+            return Call(url, method, null, requiresAuthentication);
         }
 
-        public XDocument Call(string url, HttpMethod method, Dictionary<string, string> parameters)
+        public XDocument Call(string url, HttpMethod method, Dictionary<string, object> data)
         {
-            return Call(url, method, parameters, false);
+            return Call(url, method, data, false);
         }
 
-        public XDocument Call(string url, HttpMethod method, Dictionary<string, string> parameters, bool requiresAuthentication)
+        public XDocument Call(string url, HttpMethod method, Dictionary<string, object> data, bool requiresAuthentication)
         {
             if (requiresAuthentication && (string.IsNullOrEmpty(this.publicKey) || string.IsNullOrEmpty(this.privateKey)))
             {
                 throw new MyGengoException("This API requires authentication. Both a public and private key must be specified.");
             }
 
+            var parameters = new Dictionary<string, string>();
                         parameters.Add("api_key", this.publicKey);
 
                         if (requiresAuthentication)
                         {
                             parameters.Add("ts", DateTime.UtcNow.SecondsSinceEpoch().ToString());
                             parameters.Add("api_sig", Sign(parameters["ts"]));
+                        }
+
+                        if (data != null)
+                        {
+                            parameters.Add("data", data.ToJson());
                         }
 
             string queryString = MakeQueryString(parameters);

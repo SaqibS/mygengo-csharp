@@ -44,7 +44,7 @@
     <Compile Include="ApiHelper.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="HttpMethod.cs" />
+    <Compile Include="Enumerations.cs" />
     <Compile Include="MyGengoClient.cs" />
     <Compile Include="MyGengoException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
