@@ -9,36 +9,21 @@ Example Code
 ---------------------------------------------------------------------------------------------------------------------------
 
 ``` c#  
-using System;  
-using System.Collections.Generic;  
-using System.Linq;  
-using System.Text;  
-using myGengo.Apis;  
-using myGengo.Http;  
+using System;
+using System.Linq;
+using MyGengo;
+using System.Xml.Linq;
 
-namespace myGengo.Examples  
-{  
-    class AccountExample : Generic  
-    {  
-        public override void test()  
-        {  
-            printNice("account");  
-            Config config = Config.getInstance();  
-            SortedDictionary<string, object> param = new SortedDictionary<string, object>();  
-            param["ts"] = Config.timestamp();  
-            param["api_key"] = config["api_key"];  
-            param["api_sig"] = Crypto.sign(Utils.buildQuery(param), config["private_key"]);  
-            Account account = (Account)Api.factory("account");  
-            
-            printNice("getBalance");  
-            account.getBalance("json", param);  
-            printNice(account.getResponseBody());  
-            printNice("getStats");  
-            account.getStats("xml", param);  
-            printNice(account.getResponseBody());  
-        }  
-    }  
-}  
+public class Job
+{
+	public void CreateJob()
+	{
+		var mygengo = new MyGengoClient(ApiKeys.PublicKey, ApiKeys.PrivateKey, useSandbox: true);
+		var job = new TranslationJob("This is all kinds of awesome", "en", "ja", Tier.Standard);
+		XDocument response = mygengo.PostTranslationJob(job);
+		// response.Root.Element("response").Element("job") is your ideal response!
+	}
+}
 ```
 
 Question, Comments, Complaints, Praise?
@@ -50,3 +35,11 @@ Email: ryan [at] mygengo dot com
 Twitter: **[@mygengo_dev](http://twitter.com/mygengo_dev)**  
 
 If you come across any issues, please file them on the **[Github project issue tracker](https://github.com/myGengo/mygengo-csharp/issues)**. Thanks!
+
+
+Credits & License
+---------------------------------------------------------------------------------------------------------------------------
+This library exists due to the excellent efforts of **[Saqib Shaikh]()**, who graciously donated time and effort to provide
+an improved C# interface for interacting with myGengo.
+
+The library itself is licensed under a BSD-style license. See the enclosed LICENSE.txt file for more information.
