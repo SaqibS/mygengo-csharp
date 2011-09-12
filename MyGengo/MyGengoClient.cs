@@ -45,7 +45,7 @@
         {
             try
             {
-                string url = baseUrl + "account/stats";
+                string url = baseUrl + "account/stats/";
                                                                 return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
                                         }
             catch (MyGengoException x) { throw x; }
@@ -56,7 +56,7 @@
         {
                         try
             {
-                string url = baseUrl + "account/balance";
+                string url = baseUrl + "account/balance/";
                 return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
                         catch (MyGengoException x) { throw x; }
@@ -67,7 +67,7 @@
         {
                         try
             {
-                            string url = baseUrl + "translate/job";
+                            string url = baseUrl + "translate/job/";
                             var data = new Dictionary<string, object>();
                             data.Add("job", job.ToDictionary());
                             return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
@@ -80,7 +80,7 @@
         {
                         try
             {
-                string url = baseUrl + "translate/jobs";
+                string url = baseUrl + "translate/jobs/";
                 var data = new Dictionary<string, object>();
                 data.Add("jobs", jobs.Select(x => x.ToDictionary()).ToArray());
                 data.Add("as_group", processAsGroup ? 1 : 0);
@@ -95,7 +95,7 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
         {
             try
             {
-                string url = baseUrl + "translate/job/" + id;
+                string url = baseUrl + "translate/job/" + id + "/";
                 var data = new Dictionary<string, object>();
                 data.Add("action", "purchase");
                 return api.Call(url, HttpMethod.Put, data, requiresAuthentication: true);
@@ -108,7 +108,7 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
         {
             try
             {
-                string url = baseUrl + "translate/job/" + id;
+                string url = baseUrl + "translate/job/" + id + "/";
                 var data = new Dictionary<string, object>();
                 data.Add("action", "revise");
                 data.Add("comment", comments);
@@ -122,7 +122,7 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
         {
             try
             {
-                string url = baseUrl + "translate/job/" + id;
+                string url = baseUrl + "translate/job/" + id + "/";
                 var data = new Dictionary<string, object>();
                 data.Add("action", "approve");
                 data.Add("for_translator", commentsForTranslator);
@@ -147,7 +147,7 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
         {
                         try
             {
-                string url = baseUrl + "translate/job/" + id;
+                string url = baseUrl + "translate/job/" + id + "/";
                 var data = new Dictionary<string, object>();
                 data.Add("reason", reason.ToString().ToLower());
                 data.Add("comment", comments);
@@ -163,8 +163,8 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
         {
                         try
             {
-                string url = baseUrl + "translate/job/" + id;
-return null;
+                string url = baseUrl + "translate/job/" + id + "/";
+				return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -174,8 +174,8 @@ return null;
         {
                         try
             {
-                string url = baseUrl + "translate/jobs";
-return null;
+                string url = baseUrl + "translate/jobs/";
+				return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -185,19 +185,21 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/jobs/" + id;
-return null;
+                            string url = baseUrl + "translate/jobs/" + id + "/";
+							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-                public XDocument PostTranslationJobComment(string id)
+                public XDocument PostTranslationJobComment(string id, string comment)
         {
                         try
             {
-                            string url = baseUrl + "translate/job/" + id + "/comment";
-return null;
+                string url = baseUrl + "translate/job/" + id + "/comment";
+                var data = new Dictionary<string, object>();
+                data.Add("comment", comment);
+                return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -207,8 +209,8 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/job/" + id + "/comments";
-return null;
+                            string url = baseUrl + "translate/job/" + id + "/comments/";
+							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -218,8 +220,8 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/job/" + id + "/feedback";
-return null;
+                            string url = baseUrl + "translate/job/" + id + "/feedback/";
+							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -229,8 +231,8 @@ return null;
         {
                         try
             {
-                            string url = "translate/job/" + id + "/revisions";
-return null;
+                            string url = "translate/job/" + id + "/revisions/";
+							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -240,8 +242,8 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/job/" + id + "/revisions/" + revisionId;
-return null;
+                            string url = baseUrl + "translate/job/" + id + "/revisions/" + revisionId + "/";
+							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -251,8 +253,8 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/job/" + id + "/preview";
-return null;
+                            string url = baseUrl + "translate/job/" + id + "/preview/";
+							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -262,8 +264,8 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/job/" + id;
-return null;
+                            string url = baseUrl + "translate/job/" + id + "/";
+							return api.Call(url, HttpMethod.Delete, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
@@ -273,7 +275,7 @@ return null;
         {
             try
             {
-                string url = baseUrl + "translate/service/languages";
+                string url = baseUrl + "translate/service/languages/";
                 return api.Call(url, HttpMethod.Get);
             }
             catch (MyGengoException x) { throw x; }
@@ -284,7 +286,7 @@ return null;
         {
                         try
             {
-                string url = baseUrl + "translate/service/language_pairs";
+                string url = baseUrl + "translate/service/language_pairs/";
                 return api.Call(url, HttpMethod.Get);
             }
             catch (MyGengoException x) { throw x; }
@@ -295,7 +297,7 @@ return null;
         {
             try
             {
-                string url = baseUrl + "translate/service/language_pairs";
+                string url = baseUrl + "translate/service/language_pairs/";
 
                 var data = new Dictionary<string, object>();
                 data["lc_src"] = sourceLanguageCode;
@@ -309,8 +311,12 @@ return null;
         {
                         try
             {
-                            string url = baseUrl + "translate/service/quote";
-return null;
+                string url = baseUrl + "translate/service/quote/";
+				var data = new Dictionary<string, object>();
+                data.Add("jobs", jobs.Select(x => x.ToDictionary()).ToArray());
+                data.Add("as_group", processAsGroup ? 1 : 0);
+                data.Add("process", shouldProcess ? 1 : 0);
+				return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
