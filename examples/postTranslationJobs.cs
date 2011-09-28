@@ -18,8 +18,9 @@ public class Job
 
 		for (int i = 0; i < 3; i++)
 		{
+			// The same text is used here for slug and translation; they are fine to be different.
 			string text = string.Format("Test{0}ing myGe{1}ngo A{2}PI li{3}brary calls.", rnd.Next(1, 226), rnd.Next(1, 226), rnd.Next(1, 226), rnd.Next(1, 226));
-			jobs[i] = new TranslationJob(text, "en", "ja", Tier.Standard);
+			jobs[i] = new TranslationJob(text, text, "en", "ja", Tier.Standard);
 		}
 
 		/**
