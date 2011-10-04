@@ -181,11 +181,11 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
         }
 
-        public XDocument GetTranslationJobBatch(string id)
+        public XDocument GetTranslationJobBatch(string group_id)
         {
                         try
             {
-                            string url = baseUrl + "translate/jobs/" + id + "/";
+                            string url = baseUrl + "translate/jobs/group/" + group_id + "/";
 							return api.Call(url, HttpMethod.Get, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
@@ -266,6 +266,19 @@ return api.Call(url, HttpMethod.Post, data, requiresAuthentication: true);
             {
                             string url = baseUrl + "translate/job/" + id + "/";
 							return api.Call(url, HttpMethod.Delete, requiresAuthentication: true);
+            }
+            catch (MyGengoException x) { throw x; }
+            catch (Exception x) { throw new MyGengoException(x.Message, x); }
+        }
+
+        public XDocument DeleteTranslationJobs(int[] ids)
+        {
+                        try
+            {
+                            string url = baseUrl + "translate/jobs";
+							var data = new Dictionary<string, object>();
+							data.Add("job_ids", ids);
+							return api.Call(url, HttpMethod.Delete, data, requiresAuthentication: true);
             }
             catch (MyGengoException x) { throw x; }
             catch (Exception x) { throw new MyGengoException(x.Message, x); }
